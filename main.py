@@ -9,11 +9,15 @@ WORK_MIN = 25
 SHORT_BREAK_MIN = 5
 LONG_BREAK_MIN = 20
 
-# ---------------------------- TIMER RESET ------------------------------- # 
+# ---------------------------- TIMER RESET ------------------------------- #
 
-# ---------------------------- TIMER MECHANISM ------------------------------- # 
+# ---------------------------- TIMER MECHANISM ------------------------------- #
 
 # ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
+
+
+def start_timer():
+    count_down(5)
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
@@ -25,7 +29,6 @@ def count_down(count):
     if count > 0:
         canvas.itemconfig(timer_text, text=count)
         window.after(1000, count_down, count-1)
-        print(count)
 
 
 timer_label = Label(text="Timer", font=(FONT_NAME, 40, "bold"), fg="black", bg=YELLOW)
@@ -37,10 +40,7 @@ canvas.create_image(100, 112, image=tomato)
 timer_text = canvas.create_text(100, 130, text="00:00", fill="white", font=(FONT_NAME, 35, "bold"))
 canvas.grid(column=1, row=1)
 
-#function should be called after creating canvas
-count_down(5)
-
-start_button = Button(text="Start")
+start_button = Button(text="Start", command=start_timer)
 start_button.grid(column=0, row=2)
 
 reset_button = Button(text="Reset")
