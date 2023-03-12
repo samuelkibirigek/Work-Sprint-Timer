@@ -6,19 +6,11 @@ RED = "#e7305b"
 GREEN = "#9bdeac"
 YELLOW = "#f7f5dd"
 FONT_NAME = "Courier"
-WORK_MIN = 1
-SHORT_BREAK_MIN = 1
-LONG_BREAK_MIN = 1
+WORK_MIN = 25
+SHORT_BREAK_MIN = 5
+LONG_BREAK_MIN = 20
 reps = 0
 timer = None
-
-# ---------------------------- TIMER RESET ------------------------------- #
-
-# ---------------------------- TIMER MECHANISM ------------------------------- #
-
-# ---------------------------- COUNTDOWN MECHANISM ------------------------------- #
-
-# ---------------------------- UI SETUP ------------------------------- #
 
 window = Tk()
 window.title("Work Sprint Timer")
@@ -46,14 +38,17 @@ def start_timer():
     if reps in (1, 3, 5, 7):
         count_down(work_sprint)
         timer_label.config(text="WORK", fg=GREEN)
+        focus_window("off")
         print("work sprint")
     elif reps in (2, 4, 6):
         count_down(short_break)
-        timer_label.config(text="SHORT BREAK", fg=PINK)
+        timer_label.config(text="TAKE SHORT BREAK", fg=PINK)
+        focus_window("on")
         print("short break")
     elif reps == 8:
         count_down(long_break)
-        timer_label.config(text="LONG BREAK", fg=RED)
+        timer_label.config(text="TAKE LONG BREAK", fg=RED)
+        focus_window("on")
         print("long break")
 
 
@@ -88,6 +83,15 @@ def reset():
     ticks.config(text="")
     global reps
     reps = 0
+
+
+def focus_window(option):
+    if option == "on":
+        window.deiconify()
+        window.focus_force()
+        window.attributes('-topmost', True)
+    elif option == "off":
+        window.attributes('-topmost', False)
 
 
 start_button = Button(text="Start", command=start_timer)
